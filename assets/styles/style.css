@@ -1,5 +1,7 @@
 
-
+*{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 .head-banner{
     display: flex;
     flex-direction: row;
@@ -13,10 +15,44 @@
 header{
     /*background-color: blue;*/
     margin: 0;
-    background-image: linear-gradient(to bottom right, teal, blue);
+    background-image: linear-gradient(to bottom right, rgb(5, 174, 241), blue);
 }
 
 body{
     margin:0;
     
+}
+
+.search-area{
+    font-size: 30px;
+}
+.city-input{
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+}
+
+aside{
+    display:flex;
+    flex-direction: column;
+    margin-left: 2%;
+}
+
+.searchButton{
+    width: 245px;
+    font-size: 20px;
+    margin-top:20px;
+    background-color:rgb(5, 174, 241);
+    color: white;
+    border-radius: 8px;
+}
+.searchButton:hover{
+    background-color: blue;
+    border: none;
+}
+hr{
+    display:flex;
+    justify-content: flex-start;
+    margin-left: -5px;
 }
