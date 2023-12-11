@@ -1,0 +1,22 @@
+
+
+.head-banner{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    color: white;
+    padding: 25px;
+    margin-right: 20%;
+    margin-top: 0;
+}
+
+header{
+    /*background-color: blue;*/
+    margin: 0;
+    background-image: linear-gradient(to bottom right, teal, blue);
+}
+
+body{
+    margin:0;
+    
+}
