@@ -46,6 +46,7 @@ aside{
     background-color:rgb(5, 174, 241);
     color: white;
     border-radius: 8px;
+    border:none;
 }
 .searchButton:hover{
     background-color: blue;
@@ -55,4 +56,6 @@ hr{
     display:flex;
     justify-content: flex-start;
     margin-left: -5px;
+    width:250px;
+    color:lightgray;
 }
