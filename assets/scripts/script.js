@@ -45,7 +45,7 @@ function getCityEntry(event){
         .then(function(data){
           curForecast(data);
           showForecast(data);
-          
+          cityInput.value = ""; // clear input
         })
         
     })
@@ -58,7 +58,10 @@ function showForecast(data){
         resultsContainer.textContent = 'City not found.';
         return;
     }
-
+   
+    // resets the dates everytime function is called
+    var currentDate = new Date();
+    
     for(var i = 0; i < 5; i++){
 
             //  creates weather day card
@@ -67,18 +70,12 @@ function showForecast(data){
             //cardContainer_El.setAttribute('id', 'weatherCard');
             fiveDayDisplay.appendChild(cardContainer_El);
 
-            // //create paragraph for weekday
-            // var weekDay_El = document.createElement('p');
-            // weekDay_El.classList = 'weekDay';
-            // weekDay_El.setAttribute('id', 'day');
-            // weekDay_El.textContent = daysOfWeek[(currentDate.getDay() + i) % 7]; // changes day of the week
-
-            // cardContainer_El.appendChild(weekDay_El);
+            ////
 
             // Create paragraph for current date
             var currentDate_El = document.createElement('p');
             currentDate_El.setAttribute('id', 'currentDateID');
-            currentDate.setDate(currentDate.getDate() + 1);
+            currentDate.setDate(currentDate.getDate() + 1); 
             currentDate_El.textContent = currentDate.toDateString();
             cardContainer_El.appendChild(currentDate_El);
 
@@ -109,9 +106,15 @@ function showForecast(data){
 
     }
 }
-
+// Showing current forecast function
 function curForecast(data){
   var i = 0;
+  dayDisplay.innerHTML = '';
+
+  if(!data){
+      resultsContainer.textContent = 'City not found.';
+      return;
+  }
    //  creates weather day card
    var curContainer_El = document.createElement('div');
    curContainer_El.classList = 'curCardContainer';
@@ -185,8 +188,16 @@ function storeCities() {
   document.querySelector('.formSubmit').addEventListener('submit', getCityEntry);
 
 ///TODO: 
-  // Current day's Temp
-  // start 5 day forecast tomorrow
-  // fix date to increment
+  
   // create city history "clickable"
   // clear input on submit and refresh
+
+  // this was in for loop in showForecast()
+
+      // //create paragraph for weekday
+            // var weekDay_El = document.createElement('p');
+            // weekDay_El.classList = 'weekDay';
+            // weekDay_El.setAttribute('id', 'day');
+            // weekDay_El.textContent = daysOfWeek[(currentDate.getDay() + i) % 7]; // changes day of the week
+
+            // cardContainer_El.appendChild(weekDay_El);
