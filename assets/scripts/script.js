@@ -26,7 +26,6 @@ function getCityEntry(event){
     //GeoCoding Api for city
     var geoApiUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityInput.value + '&appid=e5814fee5eda4d4a8e524afc1139e11e';
 
-    
                 //
     fetch(geoApiUrl)
     .then(function(response){
@@ -36,6 +35,8 @@ function getCityEntry(event){
         var city = data[0];
         var lat = city.lat;
         var lon = city.lon;
+        //pushing user input to theCitiesList array.
+        theCitiesList.push(cityInput.value);
         //5-day WeatherForecast API
         var apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=e5814fee5eda4d4a8e524afc1139e11e';
         fetch(apiUrl)
@@ -45,7 +46,11 @@ function getCityEntry(event){
         .then(function(data){
           curForecast(data);
           showForecast(data);
+          storeCities();
+          console.log(theCitiesList);
+          renderCityList();
           cityInput.value = ""; // clear input
+          
         })
         
     })
@@ -102,9 +107,8 @@ function showForecast(data){
             humid_El.textContent = "Humidity: " + Number(data.list[i].main.humidity);
             cardContainer_El.appendChild(humid_El);
 
-            
-
     }
+    
 }
 // Showing current forecast function
 function curForecast(data){
@@ -166,6 +170,7 @@ function storeCities() {
       var addCity = theCitiesList[i];
   
       var li = document.createElement("li");
+      li.classList = 'historicList';
       li.textContent = addCity;
       li.setAttribute("data-index", i);
   
@@ -183,9 +188,11 @@ function storeCities() {
     renderCityList();
   }
   
-  init();
+  
   
   document.querySelector('.formSubmit').addEventListener('submit', getCityEntry);
+  
+  init();
 
 ///TODO: 
   

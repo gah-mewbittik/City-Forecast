@@ -149,3 +149,9 @@ img{
     font-size: 20px;
     margin: 15px;
 }
+
+/*Search historic list*/
+
+.historicList{
+    list-style-type: none;
+}
