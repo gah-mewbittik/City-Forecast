@@ -141,7 +141,6 @@ function storeCities() {
   document.querySelector('.formSubmit').addEventListener('submit', getCityEntry);
 
 ///TODO: 
-  // 5-Day Forecast Header
   // Current day's Temp
   // start 5 day forecast tomorrow
   // fix date to increment

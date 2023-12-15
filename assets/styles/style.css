@@ -88,3 +88,8 @@ img{
     justify-content: center;
     margin-left: 25%;
 }
+
+#fiveDayHeader{
+    display: flex;
+    justify-content: center;
+}
