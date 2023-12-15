@@ -8,6 +8,7 @@ var resultsContainer = document.querySelector('.results-container');
 
 var formSubmit = document.querySelector('.formSubmit');
 
+var dayDisplay = document.querySelector('.dayDisplay');
 var fiveDayDisplay = document.querySelector('.fiveDayDisplay');
 
 //list of cities
@@ -42,7 +43,9 @@ function getCityEntry(event){
           return response.json();
         })
         .then(function(data){
+          curForecast(data);
           showForecast(data);
+          
         })
         
     })
@@ -64,17 +67,18 @@ function showForecast(data){
             //cardContainer_El.setAttribute('id', 'weatherCard');
             fiveDayDisplay.appendChild(cardContainer_El);
 
-            //create paragraph for weekday
-            var weekDay_El = document.createElement('p');
-            weekDay_El.classList = 'weekDay';
-            weekDay_El.setAttribute('id', 'day');
-            weekDay_El.textContent = daysOfWeek[(currentDate.getDay() + i) % 7]; // review if currentDate needs to be added
+            // //create paragraph for weekday
+            // var weekDay_El = document.createElement('p');
+            // weekDay_El.classList = 'weekDay';
+            // weekDay_El.setAttribute('id', 'day');
+            // weekDay_El.textContent = daysOfWeek[(currentDate.getDay() + i) % 7]; // changes day of the week
 
-            cardContainer_El.appendChild(weekDay_El);
+            // cardContainer_El.appendChild(weekDay_El);
 
             // Create paragraph for current date
             var currentDate_El = document.createElement('p');
             currentDate_El.setAttribute('id', 'currentDateID');
+            currentDate.setDate(currentDate.getDate() + 1);
             currentDate_El.textContent = currentDate.toDateString();
             cardContainer_El.appendChild(currentDate_El);
 
@@ -106,6 +110,46 @@ function showForecast(data){
     }
 }
 
+function curForecast(data){
+  var i = 0;
+   //  creates weather day card
+   var curContainer_El = document.createElement('div');
+   curContainer_El.classList = 'curCardContainer';
+   //cardContainer_El.setAttribute('id', 'weatherCard');
+   dayDisplay.appendChild(curContainer_El);
+
+
+   // Create paragraph for current date
+   var curDate_El = document.createElement('p');
+   curDate_El.setAttribute('id', 'curDateID');
+   curDate_El.textContent = currentDate.toDateString();
+   curContainer_El.appendChild(curDate_El);
+
+   // create div for icon
+   var weatherImg = document.createElement('img');
+   weatherImg.classList = 'curImg';
+   weatherImg.setAttribute('src', 'http://openweathermap.org/img/wn/'+data.list[i].weather[0].icon+'.png');
+   curContainer_El.appendChild(weatherImg);
+   
+   //create paragraph for Temperature
+   var temp_El = document.createElement('p');
+   temp_El.setAttribute('id', 'temp');
+   temp_El.textContent = "Temp: " + Number(data.list[i].main.temp - 273.15).toFixed(2) + ' °' + 'C';
+   curContainer_El.appendChild(temp_El);
+
+   //create paragraph for wind
+   var wind_El = document.createElement('p');
+   wind_El.setAttribute('id', 'wind');
+   wind_El.textContent = "Wind: " + Number(data.list[i].wind.speed * (18/5)).toFixed(2) + ' km/h';
+   curContainer_El.appendChild(wind_El);
+
+   //create paragraph for humidity
+   var humid_El = document.createElement('p');
+   humid_El.setAttribute('id', 'humid');
+   humid_El.textContent = "Humidity: " + Number(data.list[i].main.humidity);
+   curContainer_El.appendChild(humid_El);
+
+}
 // The City List ---- REVIEW THIS 
 function storeCities() {
     localStorage.setItem("theCitiesList", JSON.stringify(theCitiesList));
