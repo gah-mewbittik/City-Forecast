@@ -47,6 +47,7 @@ aside{
     color: white;
     border-radius: 8px;
     border:none;
+    padding: 5px;
 }
 .searchButton:hover{
     background-color: blue;
@@ -58,4 +59,32 @@ hr{
     margin-left: -5px;
     width:250px;
     color:lightgray;
+}
+
+.fiveDayDisplay{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.weatherCardContainer{
+    margin-top: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 30px;
+    border: 2px solid  darkkhaki;
+    border-radius: 8px;
+    color: white;
+    background-color: rgb(16, 86, 132);
+}
+.weekDay{
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+img{
+    display: flex;
+    justify-content: center;
+    margin-left: 25%;
 }
