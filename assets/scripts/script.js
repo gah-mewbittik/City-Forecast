@@ -15,6 +15,8 @@ var fiveDayDisplay = document.querySelector('.fiveDayDisplay');
 var theCitiesList = [];
 var cityList = document.getElementById('city-list');
 
+var cityLinks = [];
+
 //scan through the index of dayOfWeek
 function scanDays(i){
  return (currentDate.getDay() + i) % 7;
@@ -39,6 +41,9 @@ function getCityEntry(event){
         theCitiesList.push(cityInput.value);
         //5-day WeatherForecast API
         var apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=e5814fee5eda4d4a8e524afc1139e11e';
+        
+        cityLinks.push(lat, lon); // KEEP an EYE on THIS
+
         fetch(apiUrl)
         .then(function(response){
           return response.json();
@@ -48,6 +53,8 @@ function getCityEntry(event){
           showForecast(data);
           storeCities();
           console.log(theCitiesList);
+          
+          console.log(cityLinks);
           renderCityList();
           cityInput.value = ""; // clear input
           
@@ -160,7 +167,8 @@ function curForecast(data){
 // The City List ---- REVIEW THIS 
 function storeCities() {
     localStorage.setItem("theCitiesList", JSON.stringify(theCitiesList));
-    
+    //NEW
+    localStorage.setItem('cityLinks', JSON.stringify(cityLinks));
   }
   
   function renderCityList() {
@@ -168,14 +176,49 @@ function storeCities() {
     
     for (var i = 0; i < theCitiesList.length; i++) {
       var addCity = theCitiesList[i];
+      
   
       var li = document.createElement("li");
       li.classList = 'historicList';
       li.textContent = addCity;
       li.setAttribute("data-index", i);
-  
+
+      li.addEventListener('click', function(event){
+        var index = event.target.getAttribute('data-index');
+        showHistoricalWeather(index);
+        
+      });
+
       cityList.appendChild(li);
+
     }
+
+  }
+  
+  function showHistoricalWeather(index){
+      var cityName = theCitiesList[index];
+
+      var latIndex = index * 2;
+      var lonIndex = latIndex + 1;
+
+      var lat = cityLinks[latIndex];
+      var lon = cityLinks[lonIndex];
+
+      var apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=e5814fee5eda4d4a8e524afc1139e11e';
+      
+      fetch(apiUrl)
+        .then(function(response){
+          return response.json();
+        })
+        .then(function(data){
+          curForecast(data);
+          showForecast(data);
+          storeCities();
+          
+          renderCityList();
+          cityInput.value = ""; // clear input
+          
+        })
   }
   
   function init() {
@@ -185,6 +228,12 @@ function storeCities() {
     if (storedCity !== null) {
       theCitiesList = storedCity;
     }
+    //NEW
+    var storedLink = JSON.parse(localStorage.getItem("cityLinks"));
+    if(storedLink !== null){
+      cityLinks = storedLink;
+    }
+    
     renderCityList();
   }
   
