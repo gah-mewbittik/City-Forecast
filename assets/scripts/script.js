@@ -1,33 +1,36 @@
-
+// City input
 var cityInput = document.querySelector('.city-input');
 var citySearchBtn = document.querySelector('.searchButton');
 var currentDate = new Date();
 
-var daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
 var resultsContainer = document.querySelector('.results-container');
 
+//Form class
 var formSubmit = document.querySelector('.formSubmit');
-
+//current forecast display 
 var dayDisplay = document.querySelector('.dayDisplay');
+//fiv day forecast display
 var fiveDayDisplay = document.querySelector('.fiveDayDisplay');
-
+//Header for 5-day
 var fiveDayHeader = document.getElementById('fiveDayHeader');
 
-//list of cities
+// array for list of cities 
 var theCitiesList = [];
 var cityList = document.getElementById('city-list');
-
+//array for city links lat and lon
 var cityLinks = [];
 
 //scan through the index of dayOfWeek
 function scanDays(i){
  return (currentDate.getDay() + i) % 7;
 }
-
+//function that gets city entry and its weather data
 function getCityEntry(event){
     event.preventDefault();
 
-    if(!cityInput.value){ ///FIX this!
+    //alert if null or undefined
+    if(!cityInput.value){ 
       alert("Please, Enter a City.")
       return;
     }
@@ -49,13 +52,15 @@ function getCityEntry(event){
         //5-day WeatherForecast API
         var apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=e5814fee5eda4d4a8e524afc1139e11e';
         
-        cityLinks.push(lat, lon); // KEEP an EYE on THIS
+        //push city lat and lon
+        cityLinks.push(lat, lon); 
 
         fetch(apiUrl)
         .then(function(response){
           return response.json();
         })
         .then(function(data){
+          //Function calls
           curForecast(data);
           showForecast(data);
           storeCities();
@@ -67,10 +72,9 @@ function getCityEntry(event){
     })
 }
 
+//Function to generate weather card
 function showForecast(data){
     fiveDayDisplay.innerHTML = '';
-
-    // was here
    
     // resets the dates everytime function is called
     var currentDate = new Date();
@@ -118,7 +122,7 @@ function showForecast(data){
     }
     
 }
-// Showing current forecast function
+// function Showing current forecast 
 function curForecast(data){
   var i = 0;
   dayDisplay.innerHTML = '';
@@ -165,13 +169,14 @@ function curForecast(data){
    curContainer_El.appendChild(humid_El);
 
 }
-// The City List ---- REVIEW THIS 
+// function storing cities and lat and lon
 function storeCities() {
     localStorage.setItem("theCitiesList", JSON.stringify(theCitiesList));
     //NEW
     localStorage.setItem('cityLinks', JSON.stringify(cityLinks));
   }
   
+  //function generating list of cities entered
   function renderCityList() {
     cityList.innerHTML = "";
     
@@ -196,6 +201,7 @@ function storeCities() {
 
   }
   
+  //function retrieving historical data
   function showHistoricalWeather(index){
       var cityName = theCitiesList[index];
 
@@ -221,7 +227,7 @@ function storeCities() {
           
         })
   }
-  
+  // function init
   function init() {
     
     var storedCity = JSON.parse(localStorage.getItem("theCitiesList"));
@@ -239,7 +245,7 @@ function storeCities() {
   }
   
   
-  
+  // event listener for function getCityEntry()
   document.querySelector('.formSubmit').addEventListener('submit', getCityEntry);
   
   init();

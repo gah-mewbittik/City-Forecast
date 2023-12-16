@@ -26,6 +26,7 @@ body{
 .search-area{
     font-size: 30px;
 }
+/*City Input field*/
 .city-input{
     font-size: 20px;
     display: flex;
@@ -38,7 +39,7 @@ aside{
     flex-direction: column;
     margin-left: 1%;
 }
-
+/*Search Button*/
 .searchButton{
     width: 245px;
     font-size: 20px;
@@ -67,7 +68,7 @@ hr{
     justify-content: center;
     margin-left: 15%;
 }
-
+/*Five Day weather card and data --- Start*/
 .weatherCardContainer{
     margin-top: 5px;
     margin-left: 20px;
@@ -104,9 +105,9 @@ img{
     display: flex;
     flex-direction: row;
 }
+/*Five Day weather card and data --- End*/
 
-
-/*Current Weather */
+/*Current Weather Display*/
 
 .dayDisplay{
     display: flex;
@@ -116,6 +117,7 @@ img{
     margin-left: 10%;
    
 }
+/*Current Weather card and data  --- Start*/
 .curCardContainer{
     display: flex;
     flex-direction:row;
@@ -149,13 +151,14 @@ img{
     font-size: 20px;
     margin: 15px;
 }
+/*Current Weather card and data  --- End*/
 
 /*Search historic list*/
 .results-container{
     display: flex;
     /***** Fix button *****/
 }
-
+/* Historical city list buttons */
 .historicList{
     width: 245px;
     font-size: 20px;
