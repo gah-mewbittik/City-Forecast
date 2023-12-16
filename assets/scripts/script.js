@@ -36,9 +36,9 @@ function getCityEntry(event){
     }
 
     //GeoCoding Api for city
-    var geoApiUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityInput.value + '&appid=e5814fee5eda4d4a8e524afc1139e11e';
+    var geoApiUrl = 'https://api.openweathermap.org/geo/1.0/direct?q=' + cityInput.value + '&appid=e5814fee5eda4d4a8e524afc1139e11e';
 
-                //
+                
     fetch(geoApiUrl)
     .then(function(response){
          return response.json();     
