@@ -11,6 +11,8 @@ var formSubmit = document.querySelector('.formSubmit');
 var dayDisplay = document.querySelector('.dayDisplay');
 var fiveDayDisplay = document.querySelector('.fiveDayDisplay');
 
+var fiveDayHeader = document.getElementById('fiveDayHeader');
+
 //list of cities
 var theCitiesList = [];
 var cityList = document.getElementById('city-list');
@@ -24,6 +26,11 @@ function scanDays(i){
 
 function getCityEntry(event){
     event.preventDefault();
+
+    if(!cityInput.value){ ///FIX this!
+      alert("Please, Enter a City.")
+      return;
+    }
 
     //GeoCoding Api for city
     var geoApiUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityInput.value + '&appid=e5814fee5eda4d4a8e524afc1139e11e';
@@ -52,9 +59,6 @@ function getCityEntry(event){
           curForecast(data);
           showForecast(data);
           storeCities();
-          console.log(theCitiesList);
-          
-          console.log(cityLinks);
           renderCityList();
           cityInput.value = ""; // clear input
           
@@ -66,10 +70,7 @@ function getCityEntry(event){
 function showForecast(data){
     fiveDayDisplay.innerHTML = '';
 
-    if(!data){
-        resultsContainer.textContent = 'City not found.';
-        return;
-    }
+    // was here
    
     // resets the dates everytime function is called
     var currentDate = new Date();
@@ -243,17 +244,3 @@ function storeCities() {
   
   init();
 
-///TODO: 
-  
-  // create city history "clickable"
-  // clear input on submit and refresh
-
-  // this was in for loop in showForecast()
-
-      // //create paragraph for weekday
-            // var weekDay_El = document.createElement('p');
-            // weekDay_El.classList = 'weekDay';
-            // weekDay_El.setAttribute('id', 'day');
-            // weekDay_El.textContent = daysOfWeek[(currentDate.getDay() + i) % 7]; // changes day of the week
-
-            // cardContainer_El.appendChild(weekDay_El);
